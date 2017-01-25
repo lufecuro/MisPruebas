@@ -1,83 +1,24 @@
 <!DOCTYPE html>
 <html>
-
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="app.js" />
+</head>
 <body>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <div ng-app="myApp" ng-controller="myCtrl">
-        
-        <p>En el cuadro de texto, seleccione su pedido separado por comas, una vez tenga su pedido oprima el botón Aceptar para evaluar su pedido !</p>
-        <ul>
-            <li ng-repeat="x in lista">
-                {{ x }}
-            </li>
-        </ul>
-        Su pedido: <input ng-model="name">
-        <input id="Button1" ng-click="changeName()" type="button" value="Aceptar" />
-        <p>Evaluación de su pedido : {{resultado}}</p>
-    </div>
 
-    <script>
-var app = angular.module('myApp', []);
-app.controller('myCtrl', function ($scope) {
-    $scope.lista = ['Emparedado', 'Carne de Res', 'Bagre', 'Salmon', 'Trucha frita', 'Trucha a la plancha']
-    $scope.resultado = ""
-    $scope.changeName = function () {
-    // se inician variables
-        var cadena = $scope.name;
-        var salida = "";
-        cadena = cadena.trim();
-        // posición : Variable para hayar la posición de las comas
-        var posicion;
-        // variable para controlar el punto de inicio de la búsqueda de las comas
-        var indiceinicial = 0;
-        // Variable para contador la cantidad de productos relaes pedidos
-        var contador = 0;
-        var longitud = cadena.length;
-        
-        if (longitud > 0) {
-            // Hace un bucle buscando todas las comas existentes (No hace validaciones).  En el bucle se busca que no haya algo después de la coma
-            do {
-                posicion = cadena.indexOf(",", indiceinicial)
-                if (posicion == -1) {
-                    contador += 1;
-                }
-                else {
-                    if (posicion == 0) {
-                        salida = ""
-                        posicion = -1
-                    }
-                    else {
-                        if ((posicion + 1) < longitud) {
-                            contador += 1;
-                            indiceinicial = posicion + 1;
-                        }
-                        else {
-                            contador += 1;
-                            posicion = -1
-                        }
+  <div ng-app="myApp" ng-controller="myCtrl">
 
-                    }
-                };
-            }
-            while (posicion != -1);
-        };
-        // Establece si el pedido tiene de uno a tres productos (Suficiente) o más (Demadiado).
-        if (contador == 0) {
-            salida = "";
-        }
-        else {
-            if ((contador > 0) && (contador < 4)) {
-                salida = "Suficiente"
-            }
-            else {
-                salida = "Demasiado"
-            }
-        };
-        
-        $scope.resultado = salida;
-    }
-});
-    </script>
+      <p>En el cuadro de texto, seleccione su pedido separado por comas, una vez tenga su pedido oprima el botón Aceptar para evaluar su pedido !</p>
+      <ul>
+          <li ng-repeat="x in lista">
+              {{ x }}
+          </li>
+      </ul>
+      Su pedido: <input ng-model="name">
+      <input id="Button1" ng-click="changeName()" type="button" value="Revisar si es mucho" />
+      <p>Evaluación de su pedido : {{resultado}}</p>
+      <p>{{mensaje}}</p>
+  </div>
 
 </body>
 </html>
